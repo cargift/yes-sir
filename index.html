@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Yes</title>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+:root{
+  --c1:#F7EEED;--c2:#FAE6E7;--c3:#F7D1D8;--c4:#F4BBC9;--c5:#F6A6BB;--deep:#e0728f;
+}
+
+body{
+  font-family:'Chewy',cursive;
+  background:var(--c1) url('https://files.catbox.moe/s8a9od.jpg') center/cover fixed;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--c5);
+}
+
+/* ── FLOATING DECO ── */
+.deco{
+  position:fixed;pointer-events:none;z-index:0;font-size:1.4rem;
+  animation:deco-float linear infinite;opacity:.35;
+}
+@keyframes deco-float{
+  0%{transform:translateY(110vh) rotate(0deg)}
+  100%{transform:translateY(-20vh) rotate(360deg)}
+}
+
+/* ── PAGE ── */
+.page{display:none;min-height:100vh;padding:22px 14px 60px;position:relative;z-index:1}
+.page.active{display:block}
+
+/* ── BUBBLE CARD ── */
+.bubble{
+  background:rgba(247,238,237,.92);
+  backdrop-filter:blur(14px);
+  border-radius:40px;
+  padding:28px 20px 24px;
+  border:3px solid var(--c3);
+  box-shadow:0 10px 0 var(--c4),0 18px 40px rgba(246,166,187,.2);
+  max-width:420px;
+  margin:0 auto 14px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* shimmer strip at top */
+.bubble::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--c3),var(--c5),var(--c4),var(--c3));
+  background-size:200% 100%;
+  animation:shimmer 2.5s linear infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── TYPOGRAPHY ── */
+h1{font-size:2.1rem;line-height:1.3;color:var(--c5);text-shadow:3px 3px 0 var(--c3);}
+h2{font-size:1.7rem;color:var(--c5);}
+p{font-size:1.15rem;color:var(--c5);margin:8px 0;}
+.name{color:var(--deep);text-shadow:2px 2px 0 var(--c3);display:inline-block;}
+
+/* ── WIGGLE BTN ── */
+.btn{
+  font-family:'Chewy',cursive;font-size:1.55rem;
+  background:linear-gradient(135deg,var(--c5),var(--deep));
+  color:white;border:none;border-radius:50px;
+  padding:14px 34px;
+  box-shadow:0 6px 0 var(--deep),0 10px 20px rgba(224,114,143,.3);
+  cursor:pointer;display:block;
+  margin:18px auto 0;
+  transition:transform .08s,box-shadow .08s;
+  position:relative;overflow:hidden;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.3),transparent);
+  border-radius:50px;
+}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--deep)}
+.btn.ghost{
+  background:white;color:var(--c5);
+  border:3px solid var(--c4);
+  box-shadow:0 6px 0 var(--c4);
+}
+.btn.ghost:active{box-shadow:0 1px 0 var(--c4)}
+.btn.sm{font-size:1.2rem;padding:10px 24px}
+
+/* ── PAGE 1: INTRO ── */
+.intro-wrap{text-align:center;padding:10px 0}
+.big-emoji{
+  font-size:5rem;display:block;margin-bottom:10px;
+  animation:bounce 1.2s ease-in-out infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.08)}}
+
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.tag{
+  background:var(--c4);color:white;
+  border-radius:20px;padding:4px 14px;
+  font-size:.95rem;
+  animation:pop-in .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes pop-in{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ── CAKE SECTION ── */
+.cake-section{text-align:center;margin-top:4px}
+.cake-img{
+  width:170px;
+  filter:drop-shadow(0 14px 18px rgba(246,166,187,.5));
+  cursor:pointer;
+  animation:wiggle 2s ease-in-out infinite;
+  display:block;margin:0 auto 8px;
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(-3deg) scale(1)}
+  50%{transform:rotate(3deg) scale(1.05)}
+}
+.cake-img:active{transform:scale(.9)!important}
+.tap-hint{font-size:1rem;color:var(--c4);margin-top:4px;}
+
+/* ── PAGE 2: PHOTOS ── */
+.section-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:14px;
+}
+.section-head .icon{font-size:1.8rem;}
+
+.photo-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;
+}
+
+.polaroid{
+  background:white;border-radius:20px;
+  padding:8px 8px 16px;
+  border:3px solid var(--c3);
+  box-shadow:0 5px 0 var(--c4);
+  text-align:center;
+  transition:transform .15s;
+  cursor:pointer;
+}
+.polaroid:nth-child(1){transform:rotate(-3deg)}
+.polaroid:nth-child(2){transform:rotate(2deg);margin-top:8px}
+.polaroid:nth-child(3){transform:rotate(1.5deg);margin-top:-8px}
+.polaroid:nth-child(4){transform:rotate(-2deg)}
+.polaroid:hover{transform:rotate(0) scale(1.05)!important;z-index:5}
+.polaroid img{
+  width:100%;height:115px;object-fit:cover;
+  border-radius:12px;display:block;
+  border:2px solid var(--c2);
+}
+.polaroid .cap{
+  font-size:.9rem;color:var(--c5);
+  margin-top:7px;display:block;
+}
+
+/* ── COMMENTS ── */
+.comments-wrap{
+  background:var(--c2);
+  border-radius:26px;padding:14px 12px;
+  border:3px dashed var(--c4);
+  height:195px;overflow:hidden;
+  margin-bottom:14px;position:relative;
+}
+.c-title{font-size:.9rem;color:var(--c4);display:block;margin-bottom:8px;}
+.comments-scroll{
+  display:flex;flex-direction:column;gap:8px;
+  animation:scroll-up 14s linear infinite;
+}
+.comments-wrap:hover .comments-scroll{animation-play-state:paused}
+@keyframes scroll-up{
+  0%{transform:translateY(0)}15%{transform:translateY(0)}
+  100%{transform:translateY(calc(-100% + 195px))}
+}
+.cbubble{
+  background:white;border-radius:16px;
+  padding:8px 13px;
+  border:2px solid var(--c3);
+  font-size:.95rem;line-height:1.4;flex-shrink:0;
+}
+.cbubble strong{color:var(--deep);font-weight:normal;}
+
+/* ── PAGE 3: LETTER ── */
+.letter-deco{text-align:center;font-size:2.8rem;margin-bottom:8px;display:block;}
+.letter-box{
+  background:white;border-radius:26px;
+  padding:22px 18px;
+  border:3px solid var(--c3);
+  box-shadow:
+    inset 0 0 0 5px var(--c2),
+    0 6px 0 var(--c4);
+  font-size:1.1rem;line-height:1.85;
+  color:var(--c5);
+  white-space:pre-wrap;word-break:break-word;
+  min-height:180px;margin-bottom:14px;
+}
+
+/* ── FLOATING HEARTS ── */
+@keyframes heart-up{to{transform:translateY(-100px) scale(.5);opacity:0}}
+
+/* ── CONFETTI ── */
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+#bg-audio{display:none}
+</style>
+</head>
+<body>
+
+<!-- FLOATING DECO BG -->
+<div class="deco" style="left:5%;animation-duration:12s;animation-delay:0s">🌸</div>
+<div class="deco" style="left:20%;animation-duration:15s;animation-delay:3s">✨</div>
+<div class="deco" style="left:40%;animation-duration:10s;animation-delay:1s">🎀</div>
+<div class="deco" style="left:60%;animation-duration:13s;animation-delay:5s">🌷</div>
+<div class="deco" style="left:80%;animation-duration:11s;animation-delay:2s">💗</div>
+<div class="deco" style="left:90%;animation-duration:14s;animation-delay:7s">⭐</div>
+
+<audio id="bg-audio" src="https://files.catbox.moe/jrv7b4.mp3" preload="auto"></audio>
+
+<!-- ══ PAGE 1 ══ -->
+<div id="page1" class="page active">
+  <div class="bubble">
+    <div class="intro-wrap">
+      <span class="big-emoji">🎂</span>
+      <h1>Hi, <span class="name" id="friendName1">Yes</span>!</h1>
+      <p style="font-size:1.2rem;margin:6px 0 10px">I have a lil surprise for you~</p>
+      <div class="tag-row">
+        <span class="tag" style="animation-delay:.1s">🎉 special day</span>
+        <span class="tag" style="animation-delay:.2s">💌 just for you</span>
+        <span class="tag" style="animation-delay:.3s">✨ open me!</span>
+      </div>
+      <button class="btn" id="readyBtn">I'm ready!! 🎊</button>
+    </div>
+  </div>
+
+  <div id="cakeSection" style="display:none">
+    <div class="bubble">
+      <div class="cake-section">
+        <img src="https://files.catbox.moe/kvdiux.png" alt="cake" class="cake-img" id="cakeImage">
+        <p class="tap-hint">👆 tap the cake — or blow the candle!</p>
+        <button class="btn ghost sm" id="blowBtn">🕯️ blow!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE 2 ══ -->
+<div id="page2" class="page">
+  <div class="bubble">
+    <div class="section-head">
+      <span class="icon">🎉</span>
+      <div>
+        <h2>Happy birthday,</h2>
+        <h2><span class="name" id="friendName2">Yes</span>!!</h2>
+      </div>
+    </div>
+    <div class="photo-grid" id="photoGrid"></div>
+    <div class="comments-wrap">
+      <span class="c-title">💬 wishes pouring in for you...</span>
+      <div class="comments-scroll" id="commentsScroll"></div>
+    </div>
+    <button class="btn" id="readLetterBtn">read my letter 💌</button>
+  </div>
+</div>
+
+<!-- ══ PAGE 3 ══ -->
+<div id="page3" class="page">
+  <div class="bubble">
+    <span class="letter-deco">💌</span>
+    <h2 style="text-align:center;margin-bottom:14px">a letter for you</h2>
+    <div class="letter-box" id="letterContent">Yes</div>
+    <button class="btn ghost sm" id="backToStartBtn">← back to start</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const FRIEND_NAME="Yes";
+  const PHOTO_URLS=["images/photo_7074437240_1775022393.jpg","images/photo_7074437240_1775022394.jpg","images/photo_7074437240_1775022395.jpg","images/photo_7074437240_1775022396.jpg"];
+  const LETTER=`Yes`;
+  const COMMENTS=[
+    {user:"Carter",msg:"Happy birthday!! hope ur day is amazing 🎉"},
+    {user:"Jamie",msg:"happy birthday cutie 🌸"},
+    {user:"Sam",msg:"wish u all the best!!"},
+    {user:"Taylor",msg:"eat lots of cake today 🎂"},
+    {user:"Jordan",msg:"you're literally the best, happy bday ✨"},
+    {user:"Casey",msg:"enjoy ur special day!!"},
+    {user:"Riley",msg:"happy birthday from me 💗"},
+    {user:"Quinn",msg:"hope all ur wishes come true 🌟"},
+    {user:"Avery",msg:"u deserve all the happiness 🌼"},
+    {user:"Parker",msg:"happy level up!! 🎊"},
+    {user:"Morgan",msg:"best day ever!!"},
+    {user:"Sydney",msg:"happy birthday gorgeous 💖"},
+    {user:"Cameron",msg:"wish i was there 🥹"},
+    {user:"Reese",msg:"SO happy for u!! 🎀"}
+  ];
+
+  const p1=document.getElementById('page1'),p2=document.getElementById('page2'),p3=document.getElementById('page3');
+  const readyBtn=document.getElementById('readyBtn'),cakeSection=document.getElementById('cakeSection');
+  const cakeImg=document.getElementById('cakeImage'),blowBtn=document.getElementById('blowBtn');
+  const readLetterBtn=document.getElementById('readLetterBtn'),backBtn=document.getElementById('backToStartBtn');
+  const audio=document.getElementById('bg-audio');
+  const nameSpans=[document.getElementById('friendName1'),document.getElementById('friendName2')];
+  const photoGrid=document.getElementById('photoGrid'),commentsScroll=document.getElementById('commentsScroll');
+  const letterDiv=document.getElementById('letterContent');
+
+  function setName(n){nameSpans.forEach(el=>{if(el)el.textContent=n;})}
+
+  function showPage(n){
+    [p1,p2,p3].forEach(p=>p.classList.remove('active'));
+    [null,p1,p2,p3][n].classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  const caps=['📸 omg cute!','🌸 this one!','✨ love!!','💗 forever!'];
+  function renderPhotos(){
+    photoGrid.innerHTML='';
+    PHOTO_URLS.forEach((url,i)=>{
+      const pol=document.createElement('div');pol.className='polaroid';
+      const img=document.createElement('img');img.src=url;img.alt='photo';
+      const cap=document.createElement('span');cap.className='cap';cap.textContent=caps[i]||'📸';
+      pol.appendChild(img);pol.appendChild(cap);photoGrid.appendChild(pol);
+    });
+  }
+
+  function renderComments(){
+    commentsScroll.innerHTML='';
+    for(let c=0;c<4;c++) COMMENTS.forEach(cm=>{
+      const d=document.createElement('div');d.className='cbubble';
+      d.innerHTML=`<strong>${cm.user}:</strong> ${cm.msg}`;
+      commentsScroll.appendChild(d);
+    });
+  }
+
+  function confetti(){
+    const e=['🎉','🎊','✨','🌸','🎂','💗','🌼','🎀','⭐'];
+    for(let i=0;i<40;i++){
+      const el=document.createElement('div');
+      el.textContent=e[Math.floor(Math.random()*e.length)];
+      const sz=16+Math.random()*20;
+      el.style.cssText=`position:fixed;left:${Math.random()*100}%;top:-30px;font-size:${sz}px;z-index:9999;pointer-events:none;animation:fall ${1.8+Math.random()*2.5}s linear forwards;animation-delay:${Math.random()*.5}s`;
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(),4500);
+    }
+    if(!document.getElementById('_fall')){
+      const s=document.createElement('style');s.id='_fall';
+      s.textContent='@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}';
+      document.head.appendChild(s);
+    }
+  }
+
+  function blow(){
+    confetti();
+    // heart burst
+    for(let i=0;i<10;i++) setTimeout(()=>{
+      const h=document.createElement('div');
+      h.textContent=['❤️','💗','💕','🩷'][Math.floor(Math.random()*4)];
+      h.style.cssText=`position:fixed;left:${20+Math.random()*60}%;bottom:30%;font-size:${20+Math.random()*20}px;z-index:9999;pointer-events:none;animation:heart-up .8s ease forwards`;
+      document.body.appendChild(h);setTimeout(()=>h.remove(),900);
+    },i*80);
+    setTimeout(()=>showPage(2),900);
+  }
+
+  if(!document.getElementById('_hu')){
+    const s=document.createElement('style');s.id='_hu';
+    s.textContent='@keyframes heart-up{to{transform:translateY(-80px) scale(.4);opacity:0}}';
+    document.head.appendChild(s);
+  }
+
+  setName(FRIEND_NAME);
+  renderPhotos();
+  renderComments();
+  letterDiv.innerHTML=LETTER.replace(/\n/g,'<br>');
+
+  readyBtn.addEventListener('click',()=>{
+    audio.play().catch(()=>{});
+    cakeSection.style.display='block';
+    readyBtn.style.display='none';
+    // bouncy entrance
+    cakeSection.style.animation='pop-in .4s cubic-bezier(.34,1.56,.64,1)';
+  });
+  blowBtn.addEventListener('click',blow);
+  cakeImg.addEventListener('click',blow);
+  readLetterBtn.addEventListener('click',()=>showPage(3));
+  backBtn.addEventListener('click',()=>{
+    showPage(1);
+    cakeSection.style.display='none';
+    readyBtn.style.display='block';
+    audio.pause();audio.currentTime=0;
+  });
+  document.body.addEventListener('touchstart',function init(){
+    audio.load();document.body.removeEventListener('touchstart',init);
+  },{once:true});
+})();
+</script>
+</body>
+</html>
